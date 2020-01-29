@@ -58,11 +58,28 @@ def print_clusters(cluster_points_list):
     """
     A method which prints out the clusters of points according to the assignment requirements
 
-    :param cluster_points_list:
+    :param cluster_points_list: the list of clustered points
     """
     for i, cluster_points in enumerate(cluster_points_list):
         print('%d [%s]' % (i, ', '.join(map(str, cluster_points))))
     print('')
+
+
+def get_final_output(list_of_points, cluster_points_list):
+    """
+    Generate the final output according to the assignment requirements
+
+    :param list_of_points: the list of input points
+    :param cluster_points_list:  the list of clustered points
+    :return: output: The output
+    """
+    output = ''
+    for point in list_of_points:
+        for i, cluster_points in enumerate(cluster_points_list):
+            if point in cluster_points:
+                output += 'Point %s in cluster %s\n' % (point, i)
+                break
+    return output
 
 
 def main():
@@ -91,15 +108,19 @@ def main():
     # initialize the list of centroids to the first k input points
     centroids = [list_of_points[x] for x in range(num_clusters)]
 
+    # initialize a new list containing num_clusters (k) empty lists
+    cluster_points_list = [[] for i in range(num_clusters)]
+    # cluster_points_list_copy will be used to determine the point of convergence
+    cluster_points_list_copy = None
+
+    max_kmeans_iterations = 1000
     iteration_count = 1
 
-    for j in range(5):
-    # TODO: replace the for loop with this while loop which tests if the clusters have converged
-    # converged = False
-    # while not converged:
-
+    # loop while the k-means algorithm has not converged, and the number of iterations is less than the defined max
+    while cluster_points_list_copy != cluster_points_list and iteration_count < max_kmeans_iterations:
         # print('centroids are %s' % centroids)
-        # initialize a new list containing num_clusters (k) empty lists
+        cluster_points_list_copy = cluster_points_list.copy()
+        # again, initialize a new list containing num_clusters (k) empty lists
         cluster_points_list = [[] for i in range(num_clusters)]
 
         for point in list_of_points:
@@ -115,14 +136,17 @@ def main():
         print('Iteration %d' % iteration_count)
         print_clusters(cluster_points_list)
 
+        # recompute the centroids and update the list of centroids
         centroids = [mean(cluster_points) for cluster_points in cluster_points_list]
         iteration_count += 1
 
-        # TODO: test if the the clusters have converged, probably in a method call
-        # and set the variable "converged" to True
+    # get the final output string
+    output = get_final_output(list_of_points, cluster_points_list)
+    print(output)
 
-    # TODO: iterate list_of_points to produce the final output, both to the screen, and to and output file
-    # probably in a separate method
+    # write the output to the output file
+    with open('prog2-output-data.txt', 'w') as f:
+        f.write(output)
 
 
 if __name__ == "__main__":
