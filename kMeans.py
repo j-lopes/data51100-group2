@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This program computes the mean and variance of user inputted values using online algorithms
+This program computes performs k-means clustering using values provided from an input file
 Students:   Jenna Lopes, Geoffrey Stewart, Ryan Wade
 Date:       Jan. 23, 2020
 Course:     DATA-51100-002: 	Statistical Programming
