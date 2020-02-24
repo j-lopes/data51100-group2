@@ -1,5 +1,5 @@
-# ignore the program output file
-prog2-output-data.txt
+# ignore the program output files
+as2/prog2-output-data.txt
 
 # OSX noise
 .DS_Store
