@@ -30,6 +30,19 @@ def main():
     axes[0, 0].set_ylabel('HHL')
     plt.show()
 
-
+def bar_chart(ax):
+    grouped = df.groupby('VEH')['WGTP'].sum()/1000
+    ax.bar(grouped.index,grouped.values,width=0.9,bottom=None,color='r',align='center')
+    ax.set_title('Vehicles Available in Households',fontsize=8)
+    ax.set_xlabel('# of Vehicles',fontsize=8)
+    ax.set_ylabel('Thousands of Households',fontsize=8)
+    ax.set_xticks(grouped.index)
+        
+    ax3 = fig.add_subplot(2,2,3)
+    bar_chart(ax3)
+    ax3.tick_params(axis='both', which='major', labelsize=8)
+    ax3.tick_params(axis='both', which='minor', labelsize=8)
+    plt.show()
+    
 if __name__ == "__main__":
     main()
