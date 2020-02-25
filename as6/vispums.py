@@ -9,6 +9,9 @@ Assignment: PROGRAMMING ASSIGNMENT #6
 
 """
 
+import pandas as pd
+import matplotlib.pyplot as plt
+
 
 def main():
     # log the required output header
@@ -16,6 +19,16 @@ def main():
     print('NAMES: Jenna Lopes, Geoffrey Stewart, Ryan Wade')
     print('PROGRAMMING ASSIGNMENT #6')
     print('')
+
+    df = pd.read_csv('ss13hil.csv')
+    fig, axes = plt.subplots(2, 2, figsize=(12, 8))
+    hhl = df['HHL'].value_counts()
+    hhl.index = ['English only', 'Spanish', 'Other Indo-European languages', 'Asian and Pacific Island languages', 'Other language']
+    axes[0, 0].pie(hhl, startangle=242)
+    axes[0, 0].legend(bbox_to_anchor=(-0.4, 1), loc="upper left", labels=hhl.index)
+    axes[0, 0].set_title('Household Languages')
+    axes[0, 0].set_ylabel('HHL')
+    plt.show()
 
 
 if __name__ == "__main__":
